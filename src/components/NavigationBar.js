@@ -1,5 +1,7 @@
 import React from 'react';
+import MaterialIcon, { colorPalette } from 'material-icons-react';
 import './Components.css';
+
 
 
 export default class NavigationBar extends React.Component {
@@ -13,21 +15,24 @@ export default class NavigationBar extends React.Component {
         this.setState({ navbarWidth: 0 })
     }
     render() {
-        let style={
-            width: this.state.navbarWidth+ "vw"
+        let style = {
+            width: this.state.navbarWidth + "vw"
         }
         return (
             <div
                 onMouseOver={this.expandNavbar} onMouseOut={this.hideNavbar} className="NavigationBar">
                 <div style={style} className="NavigationBar-innerblock">
-                    <div className="Button" onClick={()=>this.props.navigateTo()}>
-                        Home
+                    <div className="Button" onClick={() => this.props.navigateTo()}>
+                        <p>Home</p>
+                        <MaterialIcon icon="home" size={40} />
                     </div>
-                    <div className="Button" onClick={()=>this.props.navigateTo("theory")}>
-                        Theory
+                    <div className="Button" onClick={() => this.props.navigateTo("theory")}>
+                        <p>Theory</p>
+                        <MaterialIcon icon="description" size={40} />
                     </div>
-                    <div className="Button" onClick={()=>this.props.navigateTo("practice")}>
-                        Practice
+                    <div className="Button" onClick={() => this.props.navigateTo("practice")}>
+                        <p>Practice</p>
+                        <MaterialIcon icon="code" size={40} />
                     </div>
                 </div>
             </div>
