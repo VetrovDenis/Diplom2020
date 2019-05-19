@@ -5,7 +5,7 @@ import { calculateTwoPhaseSkin } from "../../services/sheet/two-phase-skin"
 
 export default class PracticeProgramm extends React.Component {
     state = {
-        g: 10,
+        g: 9.8,
         δ1: 1,
         δ2: 1,
         p1: 1,
@@ -179,7 +179,7 @@ export default class PracticeProgramm extends React.Component {
                             <div className="Submit-button" onClick={() => {
                                 this.calculateChart()
                             }}>
-                                Submit
+                                Розрахувати
                         </div>
                         </form>
                     </div>
@@ -187,9 +187,11 @@ export default class PracticeProgramm extends React.Component {
                         <canvas ref="myChart" ></canvas>
                     </div>
                 </div>
-                {this.state.maxSpeed && <div>Максимальне значенн швидкості: {this.state.maxSpeed}</div>}
-                {this.state.averageSpeed && <div>Среденє значення швидкості: {this.state.averageSpeed}</div>}
-                {this.state.geOpt && <div>Ge оптимальне: {this.state.geOpt}</div>}
+                <div className="Results-container">
+                    {this.state.maxSpeed && <div className="Result-line">Максимальне значення швидкості: {this.state.maxSpeed.toFixed(2)}</div>}
+                    {this.state.averageSpeed && <div className="Result-line">Середнє значення швидкості: {this.state.averageSpeed.toFixed(2)}</div>}
+                    {this.state.geOpt && <div className="Result-line">Ge оптимальне: {this.state.geOpt.toFixed(2)}</div>}
+                </div>
             </div>
         );
     }

@@ -41,6 +41,11 @@
     justify-content: center;
 }
 
+.Submit-button {
+    border: 1px solid white;
+    padding: 5px;
+}
+
 .Input-form-container {
     display: flex;
     flex: 1;
@@ -49,4 +54,14 @@
 .Chart-container {
     display: flex;
     flex: 1;
+}
+
+.Results-container {
+    float: 1;
+    display: flex;
+}
+
+.Result-line {
+    flex: 1;
+    justify-content: flex-end;
 }

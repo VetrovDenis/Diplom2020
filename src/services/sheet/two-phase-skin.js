@@ -17,7 +17,7 @@ export function calculateTwoPhaseSkin(g, δ1, δ2, p1, p2, υ1, υ2, μ1, μ2, G
     //оптімальна дія на робочу плівку
     let q = (δ1 * μ2) / (δ2 * μ1)
     let r = (1 / 2) * (υ1 / υ2) * (δ1 / δ2) * (δ1 / δ2)
-    let GeOpt = (2 + 6 * (q + r) + Math.sqrt(1 + 12 * q * q + 6 * (1 + 6 * r) * (q + r))) / (3 + 6 * q)
+    let GeOpt = Math.sqrt((2 + 6 * (q + r) + Math.sqrt(1 + 12 * q * q + 6 * (1 + 6 * r) * (q + r))) / (3 + 6 * q))
     //максимальне та середнє значення швидкості
     let υ = υ2 / υ1
     let δ = δ2 / δ1
