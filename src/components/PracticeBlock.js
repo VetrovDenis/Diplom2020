@@ -29,7 +29,12 @@ export default class PracticeBlock extends React.Component {
             <div className="Main-block">
                 <div className="Practice-inner">
                     <div className="Practice-header">
-                        Практична частина
+                        <h2>Практична частина</h2>
+                        {this.state.navigationPracticeRoute === "home" &&
+                            <div className="Practice-header-inner">
+                                У цій частині користувач може самостійно випробувати прикладну частину проекту, а саме переглянути рішення задач для запропонованих параметрів або поекспериментувати з власними параметрами. Також він може переглянути графіки залежностей для отриманих рішень
+                            </div>
+                        }
                     </div>
                     {this.state.navigationPracticeRoute === "home" ?
                         <div className="Practice-navigation">
