@@ -1,7 +1,7 @@
 import React from 'react';
 import './Components.css';
 //assets
-import cylinder from '../assets/images/cylinder.jpg';
+import steelplate from '../assets/images/steelplate.jpg';
 import sheet from '../assets/images/sheet.jpg';
 //components
 import NavigationBlock from "./NavigationBlock"
@@ -27,13 +27,9 @@ export default class PracticeBlock extends React.Component {
         };
         return (
             <div className="Main-block">
-                {/* <div
-                    className="Navigation-background"
-                    style={style}
-                /> */}
                 <div className="Practice-inner">
                     <div className="Practice-header">
-                        Practice
+                        Практична частина
                     </div>
                     {this.state.navigationPracticeRoute === "home" ?
                         <div className="Practice-navigation">
@@ -41,16 +37,16 @@ export default class PracticeBlock extends React.Component {
                                 navigateTo={this.navigatePracticeTo}
                                 image={sheet}
                                 navigateRoute="sheet"
-                                title="ДОСЛІДЖЕННЯ ТЕЧІЇ ДВОШАРОВОЇ РІДКОЇ ПЛІВКИ ПО ПОВЕРХНІ ПЛАСТИНИ" />
+                                title={("Задача про течію двох плівок по поверхні пластини").toUpperCase()} />
                             <NavigationBlock
                                 navigateTo={this.navigatePracticeTo}
-                                image={cylinder}
+                                image={steelplate}
                                 navigateRoute="cylinder"
-                                title="ДОСЛІДЖЕННЯ ТЕЧІЇ ДВОШАРОВОЇ РІДКОЇ ПЛІВКИ ПО ПОВЕРХНІ ЦИЛІНДРА" />
+                                title={("Задача про течію двошарової плівки нелінійно-в’язкої рідини по поверхні пластини").toUpperCase()} />
                         </div>
                         :
                         <div className="Practice-programm">
-                            <PracticeProgramm  navigateTo={this.navigatePracticeTo}/>
+                            <PracticeProgramm navigateTo={this.navigatePracticeTo} />
                         </div>}
                 </div>
             </div>

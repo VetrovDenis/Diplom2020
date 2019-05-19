@@ -30,8 +30,8 @@ export default class App extends React.Component {
                 </p>
               </header>
               <div className="App-navigation">
-                <NavigationBlock navigateTo={this.navigateTo} image={books} navigateRoute="theory" title="Theory"/>
-                <NavigationBlock  navigateTo={this.navigateTo} image={code} navigateRoute="practice" title="Practice"/>
+                <NavigationBlock navigateTo={this.navigateTo} image={books} navigateRoute="theory" title="ТЕОРЕТИЧНА ДОВІДКА"/>
+                <NavigationBlock  navigateTo={this.navigateTo} image={code} navigateRoute="practice" title="ПРАКТИЧНА ЧАСТИНА"/>
               </div>
             </div>
             :
