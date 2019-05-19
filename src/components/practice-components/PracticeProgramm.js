@@ -1,6 +1,7 @@
 import React from 'react';
 import './PracticeProgramm.css';
 import Chart from "chart.js"
+import MaterialIcon from 'material-icons-react';
 import { calculateTwoPhaseSkin } from "../../services/sheet/two-phase-skin"
 
 export default class PracticeProgramm extends React.Component {
@@ -162,7 +163,7 @@ export default class PracticeProgramm extends React.Component {
         return (
             <div className="Main">
                 <div className="Back-button" onClick={() => this.props.navigateTo()}>
-                    Back
+                    <MaterialIcon icon="undo" size={30} color="white" />
                 </div>
                 <div className="Form-and-chart-container">
                     <div className="Input-form-container">

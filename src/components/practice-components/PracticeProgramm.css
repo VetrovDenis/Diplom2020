@@ -12,6 +12,8 @@
 
 .Back-button {
     position: absolute;
+    justify-content: center;
+    align-items: center;
     right: 0;
     top: 0;
 }
