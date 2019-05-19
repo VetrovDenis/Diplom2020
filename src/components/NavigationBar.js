@@ -1,5 +1,5 @@
 import React from 'react';
-import MaterialIcon, { colorPalette } from 'material-icons-react';
+import MaterialIcon from 'material-icons-react';
 import './Components.css';
 
 
