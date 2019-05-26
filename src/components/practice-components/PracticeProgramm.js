@@ -8,7 +8,7 @@ export default class PracticeProgramm extends React.Component {
     state = {
         g: 9.8,
         δ1: 1,
-        δ2: 1,
+        δ2: 4,
         p1: 997,
         p2: 1.205,
         υ1: 1.006,
