@@ -6,6 +6,7 @@ import sheet from '../assets/images/sheet.jpg';
 //components
 import NavigationBlock from "./NavigationBlock"
 import PracticeProgramm from './practice-components/PracticeProgramm';
+import PracticeProgrammSecond from './practice-components/PracticeProgrammSecond'
 
 
 export default class PracticeBlock extends React.Component {
@@ -46,13 +47,19 @@ export default class PracticeBlock extends React.Component {
                             <NavigationBlock
                                 navigateTo={this.navigatePracticeTo}
                                 image={steelplate}
-                                navigateRoute="cylinder"
+                                navigateRoute="sheet_v2"
                                 title={("Задача про течію двошарової плівки нелінійно-в’язкої рідини по поверхні пластини").toUpperCase()} />
                         </div>
                         :
-                        <div className="Practice-programm">
-                            <PracticeProgramm navigateTo={this.navigatePracticeTo} />
-                        </div>}
+                        this.state.navigationPracticeRoute === "sheet" ?
+                            <div className="Practice-programm">
+                                <PracticeProgramm navigateTo={this.navigatePracticeTo} />
+                            </div>
+                            :
+                            <div className="Practice-programm">
+                                <PracticeProgrammSecond navigateTo={this.navigatePracticeTo} />
+                            </div>
+                    }
                 </div>
             </div>
         );
