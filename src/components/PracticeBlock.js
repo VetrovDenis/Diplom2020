@@ -3,10 +3,12 @@ import './Components.css';
 //assets
 import steelplate from '../assets/images/steelplate.jpg';
 import sheet from '../assets/images/sheet.jpg';
+import cylinder from '../assets/images/cylinder.jpg'
 //components
 import NavigationBlock from "./NavigationBlock"
 import PracticeProgramm from './practice-components/PracticeProgramm';
 import PracticeProgrammSecond from './practice-components/PracticeProgrammSecond'
+import PracticeProgrammCylinder from './practice-components/PracticeProgrammCylinder'
 
 
 export default class PracticeBlock extends React.Component {
@@ -49,6 +51,11 @@ export default class PracticeBlock extends React.Component {
                                 image={steelplate}
                                 navigateRoute="sheet_v2"
                                 title={("Задача про течію двошарової плівки нелінійно-в’язкої рідини по поверхні пластини").toUpperCase()} />
+                            <NavigationBlock
+                                navigateTo={this.navigatePracticeTo}
+                                image={cylinder}
+                                navigateRoute="cylinder"
+                                title={("ЗАДАЧА ПРО ТЕЧІЮ ДВОШАРОВОЇ РІДКОЇ ПЛІВКИ ПО ПОВЕРХНІ ЦИЛІНДРА").toUpperCase()} />
                         </div>
                         :
                         this.state.navigationPracticeRoute === "sheet" ?
@@ -56,9 +63,14 @@ export default class PracticeBlock extends React.Component {
                                 <PracticeProgramm navigateTo={this.navigatePracticeTo} />
                             </div>
                             :
-                            <div className="Practice-programm">
-                                <PracticeProgrammSecond navigateTo={this.navigatePracticeTo} />
-                            </div>
+                            this.state.navigationPracticeRoute === "sheet_v2" ?
+                                <div className="Practice-programm">
+                                    <PracticeProgrammSecond navigateTo={this.navigatePracticeTo} />
+                                </div>
+                                :
+                                <div className="Practice-programm">
+                                    <PracticeProgrammCylinder navigateTo={this.navigatePracticeTo} />
+                                </div>
                     }
                 </div>
             </div>

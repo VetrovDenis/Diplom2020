@@ -57,3 +57,28 @@ export function calculateTwoPhaseSkinHard(δ1, δ2, p1, p2, Re1, Re2, Fr, n2, n1
     }
     return calculatedInfo
 }
+export function calculateSimpleCylinder(inner_skin, rLength, δ1, δ2, p1, p2, Re1, Re2, Fr, Ge) {
+    //y radius, r0 - start in cylinder
+    let r0 = 0.9999, speedArray = [], R_spec, R1, R2, R, W1, W2, W_1, lnR, lnR1, ReFr1, ReFr2, R_spec2lnRR1
+    for (let y = 0; y < Number(rLength) + 1; y = y + 0.1) {
+        R = y / r0
+        R1 = Math.abs(inner_skin ? 1 - (δ1 / r0) : 1 + (δ1 / r0))
+        R2 = Math.abs(inner_skin ? 1 - ((δ1 + δ2) / r0) : 1 + ((δ1 + δ2) / r0))
+        ReFr1 = Re1 / (2 * Fr)
+        ReFr2 = Re2 / (2 * Fr)
+        R_spec = Math.sqrt(Math.pow(R2, 2) + 2 * Ge * R2 * (δ2 / r0))
+        W_1 = (p2 / p1) * (-Math.pow(R1, 2) + Math.pow(R_spec, 2))
+        lnR = Math.log(R)
+        lnR1 = Math.log(R1)
+        R_spec2lnRR1 = Math.pow(R_spec, 2) * Math.log(R / R1)
+        //-------------------------------
+        W1 = ReFr1 * (((1 - Math.pow(R, 2)) / 2) + (Math.pow(R1, 2) + W_1) * lnR)
+        W2 = ReFr2 * (((Math.pow(R1, 2) + Math.pow(R, 2)) / 2) + R_spec2lnRR1) + ReFr1 * (((1 - Math.pow(R, 2)) / 2) + (Math.pow(R1, 2) + W_1) * lnR1)
+
+        speedArray.push({ y, W1: parseFloat(W1), W2: parseFloat(W2) })
+    }
+    let calculatedInfo = {
+        speedArray
+    }
+    return calculatedInfo
+}
