@@ -15,6 +15,7 @@ export default class NavigationBar extends React.Component {
         window.removeEventListener('scroll', this.handleScroll)
     }
     handleScroll = () => {
+        //
         if (window.scrollY > 0) {
             this.hideNavbar()
         }
