@@ -2,7 +2,7 @@ import React from 'react';
 import './PracticeProgramm.css';
 import Chart from "chart.js"
 import MaterialIcon from 'material-icons-react';
-import { calculateTwoPhaseSkinHard } from "../../services/sheet/two-phase-skin"
+import { calculateTwoPhaseSkinHard } from "../../services/two-phase-skin"
 
 export default class PracticeProgramm extends React.Component {
     state = {

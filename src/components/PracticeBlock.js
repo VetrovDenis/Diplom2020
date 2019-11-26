@@ -56,6 +56,11 @@ export default class PracticeBlock extends React.Component {
                                 image={cylinder}
                                 navigateRoute="cylinder"
                                 title={("ЗАДАЧА ПРО ТЕЧІЮ ДВОШАРОВОЇ РІДКОЇ ПЛІВКИ ПО ПОВЕРХНІ ЦИЛІНДРА").toUpperCase()} />
+                            <NavigationBlock
+                                navigateTo={this.navigatePracticeTo}
+                                image={cylinder}
+                                navigateRoute="cylinder_v2"
+                                title={("ЗАДАЧА ПРО ТЕЧІЮ ДВОШАРОВОЇ ПЛІВКИ нелінійно-в’язкої рідини ПО ПОВЕРХНІ ЦИЛІНДРА").toUpperCase()} />
                         </div>
                         :
                         this.state.navigationPracticeRoute === "sheet" ?
@@ -67,10 +72,14 @@ export default class PracticeBlock extends React.Component {
                                 <div className="Practice-programm">
                                     <PracticeProgrammSecond navigateTo={this.navigatePracticeTo} />
                                 </div>
-                                :
-                                <div className="Practice-programm">
-                                    <PracticeProgrammCylinder navigateTo={this.navigatePracticeTo} />
-                                </div>
+                                : this.state.navigationPracticeRoute === "cylinder" ?
+                                    <div className="Practice-programm">
+                                        <PracticeProgrammCylinder navigateTo={this.navigatePracticeTo} />
+                                    </div>
+                                    :
+                                    <div className="Practice-programm">
+                                        <PracticeProgrammCylinder navigateTo={this.navigatePracticeTo} />
+                                    </div>
                     }
                 </div>
             </div>
