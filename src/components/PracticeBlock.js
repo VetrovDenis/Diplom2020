@@ -4,6 +4,7 @@ import './Components.css';
 import steelplate from '../assets/images/steelplate.jpg';
 import sheet from '../assets/images/sheet.jpg';
 import cylinder from '../assets/images/cylinder.jpg'
+import many_cylinders from '../assets/images/many-cylinders.jpg'
 //components
 import NavigationBlock from "./NavigationBlock"
 import PracticeProgramm from './practice-components/PracticeProgramm';
@@ -58,7 +59,7 @@ export default class PracticeBlock extends React.Component {
                                 title={("ЗАДАЧА ПРО ТЕЧІЮ ДВОШАРОВОЇ РІДКОЇ ПЛІВКИ ПО ПОВЕРХНІ ЦИЛІНДРА").toUpperCase()} />
                             <NavigationBlock
                                 navigateTo={this.navigatePracticeTo}
-                                image={cylinder}
+                                image={many_cylinders}
                                 navigateRoute="cylinder_v2"
                                 title={("ЗАДАЧА ПРО ТЕЧІЮ ДВОШАРОВОЇ ПЛІВКИ нелінійно-в’язкої рідини ПО ПОВЕРХНІ ЦИЛІНДРА").toUpperCase()} />
                         </div>
