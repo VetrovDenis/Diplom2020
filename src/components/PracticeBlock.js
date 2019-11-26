@@ -42,12 +42,22 @@ export default class PracticeBlock extends React.Component {
                                 navigateTo={this.navigatePracticeTo}
                                 image={sheet}
                                 navigateRoute="sheet"
-                                title={("Задача про течію двох плівок по поверхні пластини").toUpperCase()} />
+                                title={("Задача про течію двошарової плівки лінійної рідини по поверхні пластини").toUpperCase()} />
+                            <NavigationBlock
+                                navigateTo={this.navigatePracticeTo}
+                                image={sheet}
+                                navigateRoute="sheet"
+                                title={("Задача про течію двошарової плівки нелінійної-в'зкої рідини по поверхні пластини").toUpperCase()} />
                             <NavigationBlock
                                 navigateTo={this.navigatePracticeTo}
                                 image={steelplate}
                                 navigateRoute="cylinder"
-                                title={("Задача про течію двошарової плівки нелінійно-в’язкої рідини по поверхні пластини").toUpperCase()} />
+                                title={("Задача про течію двошарової плівки лінійної рідини по поверхні циліндру").toUpperCase()} />
+                            <NavigationBlock
+                                navigateTo={this.navigatePracticeTo}
+                                image={steelplate}
+                                navigateRoute="cylinder"
+                                title={("Задача про течію двошарової плівки нелінійно-в’язкої рідини по поверхні циліндру").toUpperCase()} />
                         </div>
                         :
                         <div className="Practice-programm">
