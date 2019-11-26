@@ -8,18 +8,17 @@ export default class PracticeProgramm extends React.Component {
     state = {
         g: 9.8,
         δ1: 1,
-        δ2: 1,
-        p1: 1,
-        p2: 2,
-        υ1: 1,
-        υ2: 2,
-        μ1: 1,
-        μ2: 2,
+        δ2: 4,
+        p1: 997,
+        p2: 1.205,
+        υ1: 1.006,
+        υ2: 15.06,
+        μ1: 1004,
+        μ2: 18.1,
         Ge: 0,
         maxSpeed: null,
         averageSpeed: null,
         geOpt: null,
-        yLength: 10
     }
     componentDidMount = () => {
         this.calculateChart()
@@ -33,18 +32,22 @@ export default class PracticeProgramm extends React.Component {
         //this.setState({ [event.target.name]: 0 })
     }
     calculateChart = () => {
-        const { g, δ1, δ2, p1, p2, υ1, υ2, μ1, μ2, Ge, yLength } = this.state
-        const calculateInfo = calculateTwoPhaseSkin(g, δ1, δ2, p1, p2, υ1, υ2, μ1, μ2, Ge, yLength)
+        const { g, δ1, δ2, p1, p2, υ1, υ2, μ1, μ2, Ge } = this.state
+        const calculateInfo = calculateTwoPhaseSkin(g, δ1, δ2, p1, p2, υ1, υ2, μ1, μ2, Ge)
         console.log(calculateInfo.speedArray)
         this.setState({
             maxSpeed: calculateInfo.Wmax,
             averageSpeed: calculateInfo.Wsr,
             geOpt: calculateInfo.GeOpt
         })
-        let w1Array = [], w2Array = [], indexArray = []
+        let wArray = [], indexArray = []
         calculateInfo.speedArray.forEach(speedElement => {
-            w1Array.push(speedElement.W1)
-            w2Array.push(speedElement.W2)
+            if (speedElement.y.toFixed(1) <= δ1) {
+                wArray.push(speedElement.W1)
+            }
+            else if (speedElement.y.toFixed(1) > δ1) {
+                wArray.push(speedElement.W2)
+            }
             indexArray.push(speedElement.y.toFixed(1))
         });
         var myLineChart = new Chart(this.refs.myChart, {
@@ -52,17 +55,9 @@ export default class PracticeProgramm extends React.Component {
             data: {
                 labels: indexArray,
                 datasets: [{
-                    label: 'Профіль швидкості першої плівки',
-                    data: w1Array,
+                    label: 'Профіль швидкості плівки',
+                    data: wArray,
                     borderColor: 'rgba(255, 99, 132, 0.8)',
-                    fill: false,
-                    borderWidth: 1
-                },
-                {
-
-                    label: 'Профіль швидкості другої плівки',
-                    data: w2Array,
-                    borderColor: 'rgba(255, 206, 86, 0.8)',
                     fill: false,
                     borderWidth: 1
                 }]
@@ -71,9 +66,9 @@ export default class PracticeProgramm extends React.Component {
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: false
                         }
-                    }]
+                    }],
                 }
             }
         });
@@ -97,7 +92,7 @@ export default class PracticeProgramm extends React.Component {
             },
             {
 
-                label: "δ2 (товщина рідини першої плівки):",
+                label: "δ2 (товщина рідини другої плівки):",
                 name: "δ2",
                 type: "number",
                 value: this.state.δ2
@@ -118,28 +113,28 @@ export default class PracticeProgramm extends React.Component {
             },
             {
 
-                label: "υ1 (кінематичний коефіцієнти в’язкості рідини першої плівки):",
+                label: "υ1 (кінематичний коефіцієнти в’язкості рідини першої плівки, 10^6):",
                 name: "υ1",
                 type: "number",
                 value: this.state.υ1
             },
             {
 
-                label: "υ2 (кінематичний коефіцієнти в’язкості рідини першої плівки):",
+                label: "υ2 (кінематичний коефіцієнти в’язкості рідини першої плівки, 10^6):",
                 name: "υ2",
                 type: "number",
                 value: this.state.υ2
             },
             {
 
-                label: "μ1 (динамічний коефіцієнти в’язкості рідини першої плівки):",
+                label: "μ1 (динамічний коефіцієнти в’язкості рідини першої плівки, 10^6):",
                 name: "μ1",
                 type: "number",
                 value: this.state.μ1
             },
             {
 
-                label: "μ2 (динамічний коефіцієнти в’язкості рідини першої плівки):",
+                label: "μ2 (динамічний коефіцієнти в’язкості рідини першої плівки, 10^6):",
                 name: "μ2",
                 type: "number",
                 value: this.state.μ2
@@ -150,14 +145,6 @@ export default class PracticeProgramm extends React.Component {
                 name: "Ge",
                 type: "number",
                 value: this.state.Ge
-            }
-            ,
-            {
-
-                label: "y (максимальная відстань від пластини):",
-                name: "yLength",
-                type: "number",
-                value: this.state.yLength
             }
         ]
         return (

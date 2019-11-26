@@ -3,9 +3,12 @@ import './Components.css';
 //assets
 import steelplate from '../assets/images/steelplate.jpg';
 import sheet from '../assets/images/sheet.jpg';
+import cylinder from '../assets/images/cylinder.jpg'
 //components
 import NavigationBlock from "./NavigationBlock"
 import PracticeProgramm from './practice-components/PracticeProgramm';
+import PracticeProgrammSecond from './practice-components/PracticeProgrammSecond'
+import PracticeProgrammCylinder from './practice-components/PracticeProgrammCylinder'
 
 
 export default class PracticeBlock extends React.Component {
@@ -42,27 +45,33 @@ export default class PracticeBlock extends React.Component {
                                 navigateTo={this.navigatePracticeTo}
                                 image={sheet}
                                 navigateRoute="sheet"
-                                title={("Задача про течію двошарової плівки лінійної рідини по поверхні пластини").toUpperCase()} />
-                            <NavigationBlock
-                                navigateTo={this.navigatePracticeTo}
-                                image={sheet}
-                                navigateRoute="sheet"
-                                title={("Задача про течію двошарової плівки нелінійної-в'зкої рідини по поверхні пластини").toUpperCase()} />
+                                title={("Задача про течію двох плівок по поверхні пластини").toUpperCase()} />
                             <NavigationBlock
                                 navigateTo={this.navigatePracticeTo}
                                 image={steelplate}
-                                navigateRoute="cylinder"
-                                title={("Задача про течію двошарової плівки лінійної рідини по поверхні циліндру").toUpperCase()} />
+                                navigateRoute="sheet_v2"
+                                title={("Задача про течію двошарової плівки нелінійно-в’язкої рідини по поверхні пластини").toUpperCase()} />
                             <NavigationBlock
                                 navigateTo={this.navigatePracticeTo}
-                                image={steelplate}
+                                image={cylinder}
                                 navigateRoute="cylinder"
-                                title={("Задача про течію двошарової плівки нелінійно-в’язкої рідини по поверхні циліндру").toUpperCase()} />
+                                title={("ЗАДАЧА ПРО ТЕЧІЮ ДВОШАРОВОЇ РІДКОЇ ПЛІВКИ ПО ПОВЕРХНІ ЦИЛІНДРА").toUpperCase()} />
                         </div>
                         :
-                        <div className="Practice-programm">
-                            <PracticeProgramm navigateTo={this.navigatePracticeTo} />
-                        </div>}
+                        this.state.navigationPracticeRoute === "sheet" ?
+                            <div className="Practice-programm">
+                                <PracticeProgramm navigateTo={this.navigatePracticeTo} />
+                            </div>
+                            :
+                            this.state.navigationPracticeRoute === "sheet_v2" ?
+                                <div className="Practice-programm">
+                                    <PracticeProgrammSecond navigateTo={this.navigatePracticeTo} />
+                                </div>
+                                :
+                                <div className="Practice-programm">
+                                    <PracticeProgrammCylinder navigateTo={this.navigatePracticeTo} />
+                                </div>
+                    }
                 </div>
             </div>
         );
