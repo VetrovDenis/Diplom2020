@@ -10,6 +10,7 @@ import NavigationBlock from "./NavigationBlock"
 import PracticeProgramm from './practice-components/PracticeProgramm';
 import PracticeProgrammSecond from './practice-components/PracticeProgrammSecond'
 import PracticeProgrammCylinder from './practice-components/PracticeProgrammCylinder'
+import PracticeProgrammCylinderHard from './practice-components/PracticeProgrammCylinderHard'
 
 
 export default class PracticeBlock extends React.Component {
@@ -79,7 +80,7 @@ export default class PracticeBlock extends React.Component {
                                     </div>
                                     :
                                     <div className="Practice-programm">
-                                        <PracticeProgrammCylinder navigateTo={this.navigatePracticeTo} />
+                                        <PracticeProgrammCylinderHard navigateTo={this.navigatePracticeTo} />
                                     </div>
                     }
                 </div>

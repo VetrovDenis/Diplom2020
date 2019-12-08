@@ -77,3 +77,30 @@ export function calculateSimpleCylinder(inner_skin, rLength, δ1, δ2, p1, p2, R
     }
     return calculatedInfo
 }
+
+export function calculateHardCylinderSECOND(inner_skin, rLength, δ1, δ2, p1, p2, Re1, Re2, Fr, Ge) {
+    //n=1/3
+    //y - радіус, r0 - стартова точка відліку
+    let r0 = 0.9999, speedArray = [], W1, W2, c_1, c_2, c_3, c_4, R, result1, result2;
+    const a = (Re2 / Math.pow(Fr, 2))
+    for (let y = 0; y < Number(rLength) + 1; y = y + 0.1) {
+        R = y / r0
+        c_2 = Ge * (δ2 / r0) * (Re2 / Math.pow(Fr, 2));
+        c_1 = (p1 / p2) * (Re1 / Re2) * c_2;
+        c_3 = 1 - 8 * a - (12 * c_1 - 24 * Math.pow(a, 2)) - (96 * c_1 * a - 32 * Math.pow(a, 3)) - 96 * Math.pow(c_1, 2) * a + 16 * Math.pow(c_1, 3);
+        c_4 = Math.log(R) * (96 * c_1 * Math.pow(a, 2) - 48 * Math.pow(c_1, 2) - 96 * c_2 * Math.pow(a, 2) + 48 * Math.pow(c_2, 2)) + 12 * Math.pow(R, 2) * (c_1 - c_2) + 96 * R * a * (c_1 - c_2) + ((96 * a) / R) * (Math.pow(c_1, 2) - Math.pow(c_2, 2)) - (16 / Math.pow(R, 2)) * (Math.pow(c_1, 3) - Math.pow(c_2, 3))
+        W1 = ((96 * c_1 * Math.pow(a, 2) - 48 * Math.pow(c_1, 2)) * Math.log(R) - Math.pow(R, 4) + 8 * a * Math.pow(R, 3) + (12 * c_1 - 24 * Math.pow(a, 3)) * Math.pow(R, 2) + (96 * c_1 * a - 32 * Math.pow(a, 3)) * R + ((96 * Math.pow(c_1, 2) * a) / R) + 16 * Math.pow(c_1, 3) / Math.pow(R, 2)) / 32 + c_3;
+        W2 = ((96 * c_2 * Math.pow(a, 2) - 48 * Math.pow(c_2, 2)) * Math.log(R) - Math.pow(R, 4) + 8 * a * Math.pow(R, 3) + (12 * c_2 - 24 * Math.pow(a, 3)) * Math.pow(R, 2) + (96 * c_1 * a - 32 * Math.pow(a, 3)) * R + ((96 * Math.pow(c_2, 2) * a) / R) + 16 * Math.pow(c_2, 3) / Math.pow(R, 2)) / 32 + c_4;
+        if (W1 < 0 || W1 === NaN) {
+            result1 = 0;
+        }
+        else {
+            result1 = W1 * y;
+        }
+        speedArray.push({ y, W1: parseFloat(result1), W2: parseFloat(Math.abs(W2)) })
+    }
+    let calculatedInfo = {
+        speedArray
+    }
+    return calculatedInfo
+}
