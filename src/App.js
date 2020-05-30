@@ -2,10 +2,10 @@ import React from 'react';
 //assets
 import books from './assets/images/books.jpg';
 import code from './assets/images/code.jpg';
+import Pdf from './assets/doc.pdf';
 import './App.css';
 //components
 import NavigationBar from "./components/NavigationBar"
-import TheoryBlock from "./components/TheoryBlock"
 import PracticeBlock from "./components/PracticeBlock"
 import NavigationBlock from "./components/NavigationBlock"
 
@@ -24,7 +24,6 @@ export default class App extends React.Component {
           this.state.navigationRoute === "home" ?
             <div>
               <header className="App-header">
-                {/* <img src={logo} className="App-logo" alt="logo" /> */}
                 <h6>
                   ДНІПРОВСЬКИЙ НАЦІОНАЛЬНИЙ УНІВЕРСИТЕТ
                    ІМЕНІ ОЛЕСЯ ГОНЧАРА
@@ -33,13 +32,13 @@ export default class App extends React.Component {
                    МАТЕМАТИЧНОЇ КІБЕРНЕТИКИ
                 </h6>
                 <h1>
-                  КУРСОВА РОБОТА
+                  ДИМПЛОМНА РОБОТА
                 </h1>
                 <h3>
-                  з дисциплін професійної підготовки
+                  за фаховим спрямуванням
                 </h3>
                 <h2>
-                  на тему «Моделювання течій рідкої плівки по поверхні твердого тіла»
+                  на тему «МОДЕЛЮВАННЯ НЕЛІНІЙНОЇ СИСТЕМИ З УРАХУВАННЯМ ДИСИПАЦІЇ»
                 </h2>
                 <div>
                   <p>Виконав:</p>
@@ -52,13 +51,11 @@ export default class App extends React.Component {
                 </div>
               </header>
               <div className="App-navigation">
-                <NavigationBlock navigateTo={this.navigateTo} image={books} navigateRoute="theory" title="ТЕОРЕТИЧНА ДОВІДКА" />
+                <NavigationBlock navigateTo={()=> window.open(Pdf)} image={books} navigateRoute="theory" title="ТЕОРЕТИЧНА ДОВІДКА" />
                 <NavigationBlock navigateTo={this.navigateTo} image={code} navigateRoute="practice" title="ПРАКТИЧНА ЧАСТИНА" />
               </div>
             </div>
             :
-            this.state.navigationRoute === "theory" ?
-              <TheoryBlock /> :
               this.state.navigationRoute === "practice" ?
                 <PracticeBlock image={code} /> :
                 null

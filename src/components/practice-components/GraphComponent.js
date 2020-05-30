@@ -1,21 +1,26 @@
 import React from 'react';
-import './PracticeProgramm.css';
+import './GraphComponent.css';
 import Chart from "chart.js"
 import MaterialIcon from 'material-icons-react';
-import { calculateTwoPhaseSkinHard } from "../../services/two-phase-skin"
+import { calculatePlateNotLinearLiquid, calculateCylinderNotLinearLiquid } from "../../services/two-phase-skin"
 
-export default class PracticeProgramm extends React.Component {
-    state = {
-        δ1: 1,
-        δ2: 1,
-        p1: 997,
-        p2: 1.205,
-        Re1: 1.2,
-        Re2: 1.4,
-        Fr: 1,
-        n2: 1,
-        n1: 1,
-        Ge: 0
+export default class GraphComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        const { navigationPracticeRoute } = props;
+        const sheetSelected = navigationPracticeRoute === "sheet";
+        this.state = {
+            δ1: sheetSelected ? 1 : 2,
+            δ2: sheetSelected ? 2 : 3,
+            p1: 997,
+            p2: 1.205,
+            Re1: 1.2,
+            Re2: 1.4,
+            Fr: 1,
+            n2: 1,
+            n1: 1,
+            Ge: 0
+        }
     }
     componentDidMount = () => {
         this.calculateChart()
@@ -30,8 +35,13 @@ export default class PracticeProgramm extends React.Component {
     }
     calculateChart = () => {
         const { δ1, δ2, p1, p2, Re1, Re2, Fr, n2, n1, Ge } = this.state
-        const calculateInfo = calculateTwoPhaseSkinHard(δ1, δ2, p1, p2, Re1, Re2, Fr, n2, n1, Ge)
-        console.log(calculateInfo.speedArray)
+        const { navigationPracticeRoute } = this.props;
+        const sheetSelected = navigationPracticeRoute === "sheet";
+        const calculateInfo = sheetSelected ?
+            calculatePlateNotLinearLiquid(δ1, δ2, p1, p2, Re1, Re2, Fr, n2, n1, Ge) :
+            calculateCylinderNotLinearLiquid(δ1, δ2, n1, n2, p1, p2, Re1, Re2, Fr, Ge)
+
+        console.log(calculateInfo)
         this.setState({
             maxSpeed: calculateInfo.Wmax,
             averageSpeed: calculateInfo.Wsr,
@@ -47,14 +57,15 @@ export default class PracticeProgramm extends React.Component {
             }
             indexArray.push(speedElement.y.toFixed(1))
         });
-        var myLineChart = new Chart(this.refs.myChart, {
+        new Chart(this.refs.myChart, {
             type: 'line',
             data: {
                 labels: indexArray,
                 datasets: [{
                     label: 'Профіль швидкості плівки',
                     data: wArray,
-                    borderColor: 'rgba(255, 99, 132, 0.8)',
+                    borderColor: 'rgba(255, 99, 132, 0.9)',
+                    backgroundColor: 'rgba(255, 99, 132, 1)',
                     fill: false,
                     borderWidth: 1
                 }]
@@ -72,17 +83,18 @@ export default class PracticeProgramm extends React.Component {
     }
 
     render() {
+        const { navigationPracticeRoute } = this.props;
+        const sheetSelected = navigationPracticeRoute === "sheet";
         const inputValues = [
             {
 
-                label: "δ1 (товщина рідини першої плівки):",
+                label: sheetSelected ? "δ1 (товщина рідини першої плівки):" : "r1 (радіус в циліндричній системі координат для першої плівки):",
                 name: "δ1",
                 type: "number",
                 value: this.state.δ1
             },
             {
-
-                label: "δ2 (товщина рідини другої плівки):",
+                label: sheetSelected ? "δ2 (товщина рідини другої плівки):" : "r2 (радіус в циліндричній системі координат для другої плівки):",
                 name: "δ2",
                 type: "number",
                 value: this.state.δ2
@@ -110,10 +122,10 @@ export default class PracticeProgramm extends React.Component {
             },
             {
 
-                label: "Re2 (узагальнене число Рейльнодса для другої  плівки):",
+                label: "Re2 (узагальнене число Рейльнодса для другої плівки):",
                 name: "Re2",
                 type: "number",
-                value: this.state.Re1
+                value: this.state.Re2
             },
             {
 
@@ -124,14 +136,14 @@ export default class PracticeProgramm extends React.Component {
             },
             {
 
-                label: "n1 (фізична константа для нелінійно-в’язких плівок):",
+                label: "1/n1 (фізична константа для плівок нелінійно-в’язких рідин ):",
                 name: "n1",
                 type: "number",
                 value: this.state.n1
             },
             {
 
-                label: "n2 (фізична константа для нелінійно-в’язких плівок):",
+                label: "1/n2 (фізична константа для плівок нелінійно-в’язких рідин):",
                 name: "n2",
                 type: "number",
                 value: this.state.n2
