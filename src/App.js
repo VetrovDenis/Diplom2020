@@ -26,39 +26,44 @@ export default class App extends React.Component {
               <header className="App-header">
                 <h6>
                   ДНІПРОВСЬКИЙ НАЦІОНАЛЬНИЙ УНІВЕРСИТЕТ
-                   ІМЕНІ ОЛЕСЯ ГОНЧАРА
-                   ФАКУЛЬТЕТ ПРИКЛАДНОЇ МАТЕМАТИКИ
-                   КАФЕДРА ОБЧИСЛЮВАЛЬНОЇ МАТЕМАТИКИ ТА
-                   МАТЕМАТИЧНОЇ КІБЕРНЕТИКИ
+                  ІМЕНІ ОЛЕСЯ ГОНЧАРА
+                  ФАКУЛЬТЕТ ПРИКЛАДНОЇ МАТЕМАТИКИ
+                  КАФЕДРА ОБЧИСЛЮВАЛЬНОЇ МАТЕМАТИКИ ТА
+                  МАТЕМАТИЧНОЇ КІБЕРНЕТИКИ
                 </h6>
+                <h4>
+                  Факультет прикладної математики<br></br>
+                  Кафедра обчислювальної математики та математичної кібернетики
+                </h4>
+                <h4>
+                  ДИМПЛОМНА РОБОТА <br></br>
+                  Перший (бакалаврський) рівень вищої освіти
+                </h4>
                 <h1>
-                  ДИМПЛОМНА РОБОТА
+                  МОДЕЛЮВАННЯ НЕЛІНІЙНОЇ СИСТЕМИ З УРАХУВАННЯМ ДИСИПАЦІЇ
                 </h1>
-                <h3>
-                  за фаховим спрямуванням
-                </h3>
-                <h2>
-                  на тему «МОДЕЛЮВАННЯ НЕЛІНІЙНОЇ СИСТЕМИ З УРАХУВАННЯМ ДИСИПАЦІЇ»
-                </h2>
                 <div>
                   <p>Виконав:</p>
                   <p>Студент групи ПА–16–1</p>
                   <p>спеціальності 113 – Прикладна математика</p>
                   <p>Вєтров Денис Максимович</p>
 
-                  <p>Керівник: доцент кафедри ОМ та МК</p>
+                  <p>Керівник: канд.фіз.-мат. наук, доцент, доцент ПОМ</p>
                   <p>Тонкошкур І.С.</p>
                 </div>
+                <h6>
+                  2020
+                </h6>
               </header>
               <div className="App-navigation">
-                <NavigationBlock navigateTo={()=> window.open(Pdf)} image={books} navigateRoute="theory" title="ТЕОРЕТИЧНА ДОВІДКА" />
+                <NavigationBlock navigateTo={() => window.open(Pdf)} image={books} navigateRoute="theory" title="ТЕОРЕТИЧНА ДОВІДКА" />
                 <NavigationBlock navigateTo={this.navigateTo} image={code} navigateRoute="practice" title="ПРАКТИЧНА ЧАСТИНА" />
               </div>
             </div>
             :
-              this.state.navigationRoute === "practice" ?
-                <PracticeBlock image={code} /> :
-                null
+            this.state.navigationRoute === "practice" ?
+              <PracticeBlock image={code} /> :
+              null
         }
       </div>
     );
