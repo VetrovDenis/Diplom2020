@@ -57,6 +57,9 @@ export default class GraphComponent extends React.Component {
             }
             indexArray.push(speedElement.y.toFixed(1))
         });
+        const canvas = this.refs.myChart;
+        const context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
         new Chart(this.refs.myChart, {
             type: 'line',
             data: {
