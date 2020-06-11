@@ -19,34 +19,35 @@ export default class GraphComponent extends React.Component {
             Fr: 1,
             n2: 1,
             n1: 1,
-            Ge: 0
+            Ge: 0,
+            chartName: 'Профіль швидкості плівки',
+            wArrays: []
         }
     }
     componentDidMount = () => {
         this.calculateChart()
     }
     handleChange = (event) => {
-        if (event.target.value.length > 0) {
-            this.setState({ [event.target.name]: parseFloat(event.target.value) })
-        }
+        this.setState({ [event.target.name]: event.target.name === 'chartName' ? event.target.value : parseFloat(event.target.value) })
     }
     clearInput = (event) => {
         //this.setState({ [event.target.name]: 0 })
     }
-    calculateChart = () => {
+    сlearChart = () => {
+        this.setState({
+            wArrays: []
+        })
+        const canvas = this.refs.myChart;
+        const context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    calculateWArray = () => {
         const { δ1, δ2, p1, p2, Re1, Re2, Fr, n2, n1, Ge } = this.state
         const { navigationPracticeRoute } = this.props;
         const sheetSelected = navigationPracticeRoute === "sheet";
         const calculateInfo = sheetSelected ?
             calculatePlateNotLinearLiquid(δ1, δ2, p1, p2, Re1, Re2, Fr, n2, n1, Ge) :
             calculateCylinderNotLinearLiquid(δ1, δ2, n1, n2, p1, p2, Re1, Re2, Fr, Ge)
-
-        console.log(calculateInfo)
-        this.setState({
-            maxSpeed: calculateInfo.Wmax,
-            averageSpeed: calculateInfo.Wsr,
-            geOpt: calculateInfo.GeOpt
-        })
         let wArray = [], indexArray = []
         calculateInfo.speedArray.forEach(speedElement => {
             if (speedElement.y.toFixed(1) <= δ1) {
@@ -57,15 +58,78 @@ export default class GraphComponent extends React.Component {
             }
             indexArray.push(speedElement.y.toFixed(1))
         });
+        return { wArray, indexArray };
+    }
+    calculateMultiChart = () => {
+        const { wArrays } = this.state;
+        const { wArray, indexArray } = this.calculateWArray();
+        const oldWArrayMergedWithNewOne = [...wArrays, { wArray, chartName: this.state.chartName, indexArray }];
+        this.setState({
+            wArrays: oldWArrayMergedWithNewOne
+        })
+        const datasets = [];
+        const colorArray = [
+            {
+                borderColor: 'rgba(255, 99, 132, 0.9)',
+                backgroundColor: 'rgba(255, 99, 132, 1)'
+            },
+            {
+                borderColor: 'rgba(99, 255, 99, 0.9)',
+                backgroundColor: 'rgba(99, 255, 99, 1)'
+            },
+            {
+                borderColor: 'rgba(99, 109, 255, 0.9)',
+                backgroundColor: 'rgba(99, 109, 255, 1)'
+            },
+            {
+                borderColor: 'rgba(230, 35, 25, 0.9)',
+                backgroundColor: 'rgba(230, 35, 25, 1)'
+            },
+        ]
+        oldWArrayMergedWithNewOne.forEach(({ wArray, chartName }, index) => {
+            datasets.push(
+                {
+                    label: chartName,
+                    data: wArray,
+                    borderColor: index <= 3 ? colorArray[index].borderColor : 'rgba(255, 99, 132, 0.9)',
+                    backgroundColor: index <= 3 ? colorArray[index].backgroundColor : 'rgba(255, 99, 132, 1)',
+                    fill: false,
+                    borderWidth: 1
+                }
+            )
+        });
+
         const canvas = this.refs.myChart;
         const context = canvas.getContext('2d');
         context.clearRect(0, 0, canvas.width, canvas.height);
+
+        new Chart(this.refs.myChart, {
+            type: 'line',
+            data: {
+                labels: indexArray,
+                datasets
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }],
+                }
+            }
+        });
+    }
+    calculateChart = () => {
+        const { wArray, indexArray } = this.calculateWArray();
+        const { chartName } = this.state;
+        this.сlearChart()
         new Chart(this.refs.myChart, {
             type: 'line',
             data: {
                 labels: indexArray,
                 datasets: [{
-                    label: 'Профіль швидкості плівки',
+                    label: chartName,
                     data: wArray,
                     borderColor: 'rgba(255, 99, 132, 0.9)',
                     backgroundColor: 'rgba(255, 99, 132, 1)',
@@ -83,6 +147,9 @@ export default class GraphComponent extends React.Component {
                 }
             }
         });
+        this.setState(({ wArrays }) => ({
+            wArrays: [...wArrays, { wArray, indexArray, chartName }]
+        }))
     }
 
     render() {
@@ -158,6 +225,14 @@ export default class GraphComponent extends React.Component {
                 type: "number",
                 value: this.state.Ge
             }
+            ,
+            {
+
+                label: "Назва графіку:",
+                name: "chartName",
+                type: "text",
+                value: this.state.chartName
+            }
         ]
         return (
             <div className="Main">
@@ -179,7 +254,17 @@ export default class GraphComponent extends React.Component {
                             <div className="Submit-button" onClick={() => {
                                 this.calculateChart()
                             }}>
-                                Розрахувати
+                                Побудувати графік за заданими параметрами
+                        </div>
+                            <div className="Submit-button" onClick={() => {
+                                this.calculateMultiChart()
+                            }}>
+                                Побудовати графік разом з попередніми розрахунками
+                        </div>
+                            <div className="Submit-button" onClick={() => {
+                                this.сlearChart()
+                            }}>
+                                Видалити графік(и)
                         </div>
                         </form>
                     </div>

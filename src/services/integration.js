@@ -1,3 +1,11 @@
+export function customPow(x, y) {
+  if (x > 0) {
+    return Math.pow(x, y)
+  } else {
+    return -1 * Math.pow(-x, y)
+  }
+}
+
 function plugIn(x, equation) {
   return equation(x);
 }

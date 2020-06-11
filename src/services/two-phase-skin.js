@@ -1,4 +1,4 @@
-import { integrate } from "./integration"
+import { integrate, customPow } from "./integration"
 
 export function calculatePlateNotLinearLiquid(r1, r2, p1, p2, Re1, Re2, Fr, _n2, _n1, Ge) {
     //default const
@@ -49,7 +49,7 @@ export function calculateCylinderNotLinearLiquid(r1, r2, n1_coef, n2_coef, p1, p
     const A2 = Math.pow((0.5 * Re2_Fr), n2_coef);
 
     function U1_under_integrate(R_tick) {
-        return Math.pow((-R_tick + (B1 / R_tick)), n1_coef)
+        return customPow((-R_tick + (B1 / R_tick)), n1_coef)
     }
     function U2_under_integrate(R_tick) {
         return Math.pow((-R_tick + (B2 / R_tick)), n2_coef)
